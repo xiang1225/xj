@@ -1,0 +1,37 @@
+<view class='hd'>
+  <image src='{{user.imgurl}}' data-img='{{user.imgurl}}' data-list='{{user.imgurl}}' bindtap='preImg'></image>
+  <view>
+    <text class='name'>{{user.user}}{{RealName}}</text>
+    <text class='zy'>{{user.gread}}{{user.speciality}}</text>
+  </view>
+</view>
+<view class='main'>
+  <view bindtap='mypublish'>
+    <image src='/img/myupdata.png'></image>
+    <text>我的发布</text>
+  </view>
+  <view bindtap='mycollection'>
+    <image src='/img/mycollection.png'></image>
+    <text>我的收藏</text>
+  </view>
+  <view bindtap='realname'>
+    <image src='/img/realname.png'></image>
+    <text>实名认证{{ysm}}</text>
+  </view>
+</view>
+<view class='ft'>
+  <view class='ft-inner'>
+    <view id='home' bindtap='home'>
+      <image src='/img/home.png'></image>
+      <text>首 页</text>
+    </view>
+    <view id='fb' bindtap='pubLish'>
+      <image src='/img/updata.png'></image>
+      <text>发 布</text>
+    </view>
+    <view id='my' bindtap='my'>
+      <image src='/img/my.png'></image>
+      <text>我 的</text>
+    </view>
+  </view>
+</view>

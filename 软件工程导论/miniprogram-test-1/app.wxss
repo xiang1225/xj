@@ -1,0 +1,46 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+.fr{
+  float: right;
+}
+.fl{
+  float: left;
+}
+.ft{
+  background-color: #409d6e;
+  position: fixed;
+  width:100%;
+  bottom: 0;
+  text-align: center;
+}
+.ft view{
+  display: inline-block;
+}
+.ft image{
+  width: 70rpx;
+  height: 70rpx;
+  /* border-radius: 50%; */
+  display: block;
+  margin:0 auto;
+}
+.ft .ft-inner{
+  width: 100%;
+  text-align: center;
+}
+.ft .ft-inner view{
+  width: 30%;
+   margin: 5rpx 0;
+}
+.ft text{
+  color: #f6f6f6;
+  font-size:30rpx; 
+  font-weight: bolder;
+}

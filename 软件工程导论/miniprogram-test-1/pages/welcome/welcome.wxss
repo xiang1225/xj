@@ -1,0 +1,38 @@
+.user-img{
+  width: 200rpx;
+  height: 200rpx;
+  margin-top:160rpx; 
+  border-radius: 50%;
+}
+.df{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-name{
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-top: 50rpx;
+}
+.moto{
+  padding: 0 10px;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #405f80;
+}
+.moto-container{
+  border: 1px solid #405f80;
+  height: 80rpx;
+  /* width: 200rpx; */
+  letter-spacing: 5rpx;
+  margin-top: 200rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius:5px; 
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+}
+page{
+  background: #409d6e;
+}

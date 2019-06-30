@@ -1,0 +1,50 @@
+.hd{
+  background: linear-gradient(#409d6e, white);
+  border-bottom: 1px solid #9d9797;
+}
+.hd image{
+  border-radius: 50%;
+  width: 200rpx;
+  height: 200rpx;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 20px;
+}
+.hd view{
+  display: inline-block;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+.hd textarea{
+  height: 190rpx;
+  width: 400rpx;
+  font-size: 30rpx;
+}
+.zy{
+  font-size: 30rpx;
+  color: gray
+}
+.gx{
+  display: block;
+  margin-top: 20rpx;
+}
+.name{
+  letter-spacing: 5px;
+  display: block;
+}
+.main view{
+  height: 140rpx;
+  line-height: 140rpx;
+  padding:0 20px;
+  border-bottom: 1px solid #9d9797;
+}
+.main image{
+  width: 100rpx;
+  height: 100rpx;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 20px;
+}
+.main text{
+  font-weight: bolder;
+}

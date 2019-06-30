@@ -1,0 +1,31 @@
+<scroll-view scroll-y='true' style='height:{{scroll_view_height}}px'>
+  <view class='main'>
+    <block wx:key="0" wx:for="{{post_key}}" wx:for-item="item">
+      <view class='xq' bindtap='onPostTap' data-postId='{{item.goodsID}}'>
+        <image src='{{item.goodsPic}}'></image>
+        <view class='js'>
+          <text class='wpjs'>{{item.goodsName}}</text>
+          <text class='jjj'>{{item.goodjDetails}}</text>
+          <text class='wpsl'>物品数量：{{item.number}}</text>
+          <text class='price'>￥{{item.goodsPrice}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-view>
+<view class='ft'>
+  <view class='ft-inner'>
+    <view id='home' bindtap='home'>
+      <image src='/img/home.png'></image>
+      <text>首 页</text>
+    </view>
+    <view id='fb' bindtap='pubLish'>
+      <image src='/img/updata.png'></image>
+      <text>发 布</text>
+    </view>
+    <view id='my' bindtap='my'>
+      <image src='/img/my.png'></image>
+      <text>我 的</text>
+    </view>
+  </view>
+</view>

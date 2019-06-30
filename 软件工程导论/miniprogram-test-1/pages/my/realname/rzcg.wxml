@@ -1,0 +1,37 @@
+<view class='rz'>
+  <form>
+    <view class='rz-hd'>
+      <view>
+        <image src='/img/xyrz.png' class='sc'></image>
+        <text>实名认证</text>
+      </view>
+      <image src='/img/jt.png' class='sc jt'></image>
+      <view>
+        <image src='/img/success.png' class='sc'></image>
+        <text>认证成功</text>
+      </view>
+    </view>
+    <view class='rz-main'>
+      <view>
+        <text>认证成功</text>
+        <text>3秒后跳回用户界面</text>
+      </view>
+    </view>
+  </form>
+</view>
+<view class='ft'>
+  <view class='ft-inner'>
+    <view id='home' bindtap='home'>
+      <image src='/img/home.png'></image>
+      <text>首 页</text>
+    </view>
+    <view id='fb' bindtap='pubLish'>
+      <image src='/img/updata.png'></image>
+      <text>发 布</text>
+    </view>
+    <view id='my' bindtap='my'>
+      <image src='/img/my.png'></image>
+      <text>我 的</text>
+    </view>
+  </view>
+</view>

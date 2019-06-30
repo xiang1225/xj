@@ -1,0 +1,113 @@
+.hd view {
+  padding: 10rpx 20px;
+  border-bottom: 1px solid #bbb;
+}
+
+.hd input {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.hd-hd {
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.hd-hd input {
+  width: 60%;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.hd textarea {
+  height: 100px;
+  width: 100%;
+}
+
+.hd-hd radio {
+  /* vertical-align: middle; */
+  margin-left: 20rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+.wpsj input {
+  width: 200rpx;
+}
+
+.wpsj view {
+  padding: 0;
+  border: 0;
+}
+
+.flei text {
+  display: block;
+}
+
+.flei label radio {
+  transform: scale(0.7);
+}
+
+.flei label text {
+  font-size: 30rpx;
+  display: inline-block;
+  margin-right: 10rpx;
+}
+
+.ftd-inner {
+  margin: 0 !important;
+  width: 100%;
+}
+
+.ftd-inner view {
+  width: 50%;
+  margin: 0;
+  text-align: center;
+}
+
+scroll-view {
+  height: 1080rpx;
+}
+
+.ft image {
+  vertical-align: middle;
+  text-align: center;
+  margin: 5rpx auto;
+}
+
+.zs {
+  background: #663266;
+}
+
+.xx {
+  font-size: 30rpx;
+  color: #bbb;
+}
+
+.sc {
+  width: 150rpx;
+  height: 150rpx;
+  /* display: block; */
+}
+
+.tj {
+  width: 100%;
+  text-align: center;
+  border: 0 !important;
+  margin: 0;
+  padding: 0 !important;
+}
+
+.tj text {
+  display: block;
+}
+
+.q-image-wrap image {
+  width: 300rpx;
+  margin-right: 15px;
+  height: 300rpx;
+  margin-bottom: 10px;
+}
+.red{
+  color: red;
+}

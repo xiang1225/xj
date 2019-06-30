@@ -1,0 +1,27 @@
+<view class='main'>
+  <block wx:key="0" wx:for="{{class}}" wx:for-item="item">
+    <view id='{{item.id}}' class='main-inner'>
+      <view catchtap='publish' data-postId="{{item.cid}}">
+        <image src='{{item.img}}'></image>
+        <text>{{item.value}}</text>
+        <text class='fr yj'>></text>
+      </view>
+    </view>
+  </block>
+</view>
+<view class='ft'>
+  <view class='ft-inner'>
+    <view id='home' bindtap='home'>
+      <image src='/img/home.png'></image>
+      <text>首 页</text>
+    </view>
+    <view id='fb' bindtap='pubLish'>
+      <image src='/img/updata.png'></image>
+      <text>发 布</text>
+    </view>
+    <view id='my' bindtap='my'>
+      <image src='/img/my.png'></image>
+      <text>我 的</text>
+    </view>
+  </view>
+</view>

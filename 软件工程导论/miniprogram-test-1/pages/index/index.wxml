@@ -1,0 +1,63 @@
+<view class='hd'>
+  <view class='hd-inner'>
+    <view class='search'>
+      <input type='text' placeholder='输入关键词搜索' bindinput='serch'></input>
+      <icon type='search' bindtap='sercha'></icon>
+    </view>
+  </view>
+  <view id='gg' class='gg'>
+    <text>公告：公布商品和交易前，建议仔细阅读商品详情！</text>
+  </view>
+</view>
+<scroll-view class='main' scroll-y='true' style='height:{{scroll_view_height}}px'>
+  <view class='lb'>
+    <swiper indicator-dots='true' interval='2000' autoplay='true'>
+      <swiper-item>
+        <image src="/img/es.jpg"></image>
+      </swiper-item>
+      <swiper-item>
+        <image src="/img/2.jpg"></image>
+      </swiper-item>
+      <swiper-item>
+        <image src="/img/3.jpg"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+  <view class='flei'>
+    <block wx:key="0" wx:for="{{class}}" wx:for-item="item">
+      <view data-id='{{item.id}}' bindtap='fenl'>
+        <image src='{{item.img}}'></image>
+        <text>{{item.jvalue}}</text>
+      </view>
+    </block>
+  </view>
+  <view class='main-ft' id='xq'>
+    <block wx:key="0" wx:for="{{post_key.goods}}" wx:for-item="item">
+      <view class='xq' catchtap='onPostTap' data-postId='{{item.goodsID}}'>
+        <image src='{{item.goodsPic}}' bindtap='preImg' data-img='{{item.goodsPic}}' data-list='{{post_key.goods}}'></image>
+        <view class='js'>
+          <text class='wpjs'>{{item.goodsName}}</text>
+          <text class='jj'>{{item.goodjDetails}}</text>
+          <text class='wpsl'>物品数量：{{item.number}}</text>
+          <text class='price'>￥{{item.goodsPrice}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-view>
+<view class='ft'>
+  <view class='ft-inner'>
+    <view id='home'>
+      <image src='/img/home.png'></image>
+      <text>首 页</text>
+    </view>
+    <view id='fb' bindtap='pubLish'>
+      <image src='/img/updata.png'></image>
+      <text>发 布</text>
+    </view>
+    <view id='my' bindtap='my'>
+      <image src='/img/my.png'></image>
+      <text>我 的</text>
+    </view>
+  </view>
+</view>

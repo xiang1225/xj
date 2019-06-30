@@ -1,0 +1,71 @@
+<scroll-view scroll-y='true'>
+  <view class='hd'>
+    <view class='hd-hd'>
+      <text class='red'>*</text>
+      <text>物品名称：</text>
+      <input type='text' name='name' bindinput='nameinput'></input>
+    </view>
+    <view class='hd-hd'>
+      <text class='red'>*</text>
+      <text>物品数量：</text>
+      <input type='number' name='number' bindinput='numberinput'></input>
+    </view>
+    <view>
+      <text class='red'>*</text>
+      <text>详细描述：</text>
+      <textarea placeholder='最多输入200字' maxlength='200' class='xx' name='xx' bindinput='gdetailinput'></textarea>
+    </view>
+    <view class='.q-image-wrap'>
+      <block wx:for="{{images}}" wx:key="1">
+        <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+      </block>
+    </view>
+    <view hidden='{{hiddenName}}'>
+      <view class='tj' bindtap='updataimg'>
+        <image src='/img/tj.png' class='sc'></image>
+        <text>添加图片</text>
+      </view>
+    </view>
+    <view class='wpsj'>
+      <text class='red'>*</text>
+      <text>物品售价:</text>
+      <view>
+        <text>原价：</text>
+        <input type='text' name='yj' bindinput='ypriceinput'></input>
+        <text>售价：</text>
+        <input type='text' name='sj' bindinput='spriceinput'></input>
+      </view>
+    </view>
+    <view class='hd-hd'>
+      <text>交易方式：</text>
+      <radio color='grey' checked='true'></radio>
+      <text>线下交易</text>
+    </view>
+    <view class='flei'>
+      <text>物品分类：</text>
+      <radio-group class="radio-group">
+        <label class="radio" wx:for="{{items}}" wx:key="{{items}}">
+          <radio color='grey' value="{{item.name}}" checked="{{item.checked}}" id='{{item.id}}' />
+          <text>{{item.value}}</text>
+        </label>
+      </radio-group>
+    </view>
+    <view class='hd-hd'>
+      <text class='red'>*</text>
+      <text>联系方式：</text>
+      <input name='phone' bindinput='phoneinput'></input>
+    </view>
+  </view>
+</scroll-view>
+<view class='ft'>
+  <view class='ftd-inner'>
+    <view id='home' catchtap='home'>
+      <image src='/img/home.png'></image>
+      <text>首 页</text>
+    </view>
+    <view id='fb' class='zs' bindtap='updata'>
+      <image src='/img/updata.png'></image>
+      <text>发 布</text>
+    </view>
+  </view>
+</view>

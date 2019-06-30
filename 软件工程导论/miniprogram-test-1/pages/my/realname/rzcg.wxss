@@ -1,0 +1,47 @@
+.rz-hd {
+  margin: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.rz-hd text {
+  font-size: 26px;
+}
+
+.rz-hd view image {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+.rz-hd image {
+  width: 100px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.rz-hd view {
+  display: inline-block;
+}
+
+.rz-main {
+  width: 100%;
+}
+
+.rz-main view {
+  margin: 20px;
+  background: #409d6e;
+  text-align: center;
+}
+
+.rz-main view text {
+  display: block;
+  color: #fff;
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bolder;
+}
+
+.jt {
+  padding-bottom: 70px;
+}

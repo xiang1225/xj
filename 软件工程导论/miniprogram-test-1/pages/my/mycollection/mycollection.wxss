@@ -1,0 +1,47 @@
+page{
+  background-color: gray;
+}
+.main{
+  width: 100%;
+}
+.xq{
+  /* height: 300rpx; */
+  background: #f1f1f1;
+  width: 90%;
+  margin:20px;
+}
+.xq image{
+  height: 420rpx;
+  margin: 20rpx;
+  width: 50%;
+  vertical-align: top;
+}
+.js{
+  display: inline-block;
+}
+.sl{
+  display: inline-block;
+}
+.xq text{
+  display: block;
+  margin-bottom: 10rpx;
+  margin-left:20rpx; 
+}
+.price{
+  color: red;
+  font-size: 60rpx;
+  font-weight: bolder;
+}
+.wpjs{
+  margin-top: 20rpx;
+}
+scroll-view {
+  height: 1070rpx;
+}
+.jjj{
+  width: 270rpx;
+  font-size: 30rpx;
+  margin: 10rpx 0;
+  color: gray;
+  height: 240rpx;
+}

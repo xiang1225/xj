@@ -1,0 +1,51 @@
+
+.green {
+  color: green;
+}
+
+.rz-hd {
+  margin: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.rz-hd text {
+  font-size: 26px;
+}
+
+.rz-hd view image {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+.rz-hd image {
+  width: 100px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.rz-hd view {
+  display: inline-block;
+}
+
+.rz-main view {
+  margin: 0 20px;
+  height: 40px;
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 20px;
+}
+
+.rz-main input {
+  font-size: 26px;
+  margin-top: 7px;
+}
+
+.rz-xyb button {
+  background: #409d6e;
+  color: #fbfbfb;
+}
+
+.jt{
+  padding-bottom: 70px;
+}

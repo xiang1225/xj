@@ -1,0 +1,102 @@
+
+.hd-inner{
+  padding: 20px;
+  text-align: center;
+}
+.hd-inner view{
+  display: inline-block;
+}
+.search{
+  height: 60rpx;
+  width: 90%;
+  border: 1px solid #333333;
+  border-radius:12rpx; 
+  vertical-align: middle;
+}
+.search input{
+  display: inline-block;
+  line-height: 60rpx;
+  width: 90%;
+  text-align: center;
+  /* vertical-align: middle; */
+}
+.hd-inner text{
+  line-height: 60rpx;
+}
+.gg{
+  background-color: #409d6e;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.gg text{
+  margin:0 20px;
+  font-size: 28rpx;
+}
+.lb{
+  width: 100%;
+  background-color: #cdcdcd;
+  text-align: center
+}
+.lb swiper{
+  padding: 20rpx 0;
+  height: 200px;
+}
+.lb swiper image{
+  width: 90%;
+  height: 200px;
+}
+.flei{
+  text-align: center;
+  border-bottom: 2px solid #cde5e5;
+}
+.flei view{
+  display: inline-block;
+  margin: 20px 20rpx;
+  text-align: center;
+}
+.flei image{
+  display: block;
+  width: 100rpx;
+  height: 100rpx;
+  /* border-radius: 50%; */
+  margin-bottom:10rpx;
+}
+
+.main-ft{
+  margin: 20px 0;
+}
+.xq{
+  /* height: 300rpx; */
+  background: #f1f1f1;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20rpx 0;
+  margin-bottom: 20px;
+}
+.xq image{
+  height: 400rpx;
+  width: 50%;
+  vertical-align: top;
+}
+.js{
+  display: inline-block;
+}
+.xq text{
+  /* display: block; */
+  margin-left:20rpx; 
+}
+.js text{
+  display: block;
+}
+.price{
+  color: red;
+  font-size: 60rpx;
+  font-weight: bolder;
+}
+.jj{
+  width: 270rpx;
+  font-size: 30rpx;
+  margin: 10rpx 0;
+  color: gray;
+  height: 240rpx;
+}

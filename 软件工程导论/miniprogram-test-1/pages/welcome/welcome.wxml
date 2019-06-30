@@ -1,0 +1,7 @@
+<view class='df'>
+  <image src='{{tx}}'class="user-img"></image>
+  <text class='user-name'>Hello,{{nc}}</text>
+  <view class='moto-container' bindtap='onTap'>
+    <text class='moto'>欢迎来到东师二手物品信息小程序</text>
+  </view>
+</view>

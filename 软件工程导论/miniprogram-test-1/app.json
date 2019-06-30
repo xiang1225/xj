@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/welcome/welcome",
+    "pages/my/realname/rzcg",
+    "pages/my/realname/xyrz",
+    "pages/serch/serch",
+    "pages/index/index",
+    "pages/my/index/index",
+    "pages/publish/directory/directory",
+    "pages/detail/detail",
+    "pages/my/mycollection/mycollection",
+    "pages/my/mypublish/mypublish",
+    "pages/publish/content/content",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "东师二手物品信息",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#409d6e"
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,51 @@
+<view class='hd'>
+  <image src='{{seller.imgurl}}' data-img='{{seller.imgurl}}' data-list='{{seller.imgurl}}' bindtap='preImg'></image>
+  <view>
+    <text class='name'>{{seller.user}}({{seller.realName}})</text>
+    <text class='zy'>{{seller.gread}}{{seller.speciality}}</text>
+    <text class='gx'>{{seller.signature}}</text>
+  </view>
+</view>
+<scroll-view scroll-y='true'style='height:{{scroll_view_height}}px'>
+  <view class='main'>
+    <view class='main-hd'>
+      <view>
+        <text>{{posData.goodsName}}</text>
+        <text>数量：{{posData.number}}</text>
+      </view>
+      <view>
+        <text>原价：{{posData.goodsPrice}}</text>
+        <text>售价：{{posData.goodsOprice}}</text>
+      </view>
+    </view>
+    <view class='wpjs'>
+      <view class='wpjs-hd'>
+        <text>{{posData.goodsDetails}}</text>
+      </view>
+    </view>
+    <view class='tp'>
+      <text>商品详情：</text>
+      <view>
+        <block wx:key="1" wx:for="{{Gimg}}" wx:for-item="item">
+          <image src='{{item}}' data-img='{{item}}'  bindtap='preImg' data-list='{{item}}'></image>
+        </block>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<view class='ft'>
+  <view class='ftd-inner'>
+    <view id='home' bindtap='home'>
+      <image src='/img/home.png'></image>
+      <text>首 页</text>
+    </view>
+    <view id='fb' style='background:{{color}}' bindtap='collection'>
+      <image src='{{cimg}}'></image>
+      <text>{{text}}</text>
+    </view>
+    <view id='xx' class='lx fr' bindtap='phone'>
+      <image src='/img/contant.png'></image>
+      <text>联 系 卖 家</text>
+    </view>
+  </view>
+</view>
