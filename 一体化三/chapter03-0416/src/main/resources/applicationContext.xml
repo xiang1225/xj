@@ -48,7 +48,6 @@
         </property>
     </bean>
 
-
     <!-- Spring Data Jpa配置 -->
     <jpa:repositories base-package="cn.edu.nenu"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
 
@@ -60,6 +59,25 @@
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
+<!--        <property name="configLocation" value="classpath:mybatis-config.xml" />-->
+        <!-- 扫描entity包 使用别名 -->
+        <property name="typeAliasesPackage" value="cn.edu.nenu.domain" />
+        <!-- 扫描sql配置文件:mapper需要的xml文件 -->
+<!--        <property name="mapperLocations" value="classpath:mapper/*.xml" />-->
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <!-- 给出需要扫描Dao接口包 -->
+        <property name="basePackage" value="cn.edu.nenu.repository.mybatis" />
+    </bean>
 
     <!-- production环境 -->
     <beans profile="production">
@@ -83,5 +101,8 @@
 
     </beans>
     <beans profile="development"></beans>
+
+
+
 
 </beans>

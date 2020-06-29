@@ -1,5 +1,7 @@
 package cn.edu.nenu.repository;
 
+import cn.edu.nenu.config.orm.PlatformRepository;
+import cn.edu.nenu.domain.Dictionary;
 import cn.edu.nenu.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,11 +13,14 @@ import org.springframework.data.jpa.repository.Query;
  * @author <b>Oxidyc</b>, Copyright &#169; 2003
  * @version 1.0, 2020-03-04 23:04
  */
-public interface UserRepository extends JpaRepository<User,Long>, JpaSpecificationExecutor<User> {
+public interface UserRepository extends PlatformRepository<User,Long> {
 
-    //@Query("select u from User u where u.id=?1") // JPQL查询语言
+//    //@Query("select u from User u where u.id=?1") // JPQL查询语言
     @Query("from User u where u.id=?1") //与上面写法是等效的，或直接注释掉均可
     User findById(Long pkId);
+//
+    //@Query("from User u where u.username=?1")
+    User findByUsername(String username);
 
 
     /**

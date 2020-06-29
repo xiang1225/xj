@@ -1,6 +1,7 @@
 package cn.edu.nenu.domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
  * @version 1.0, 2020-03-04 22:48
  */
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "ssh_user") //数据库表名
 public class User implements Serializable {
@@ -35,9 +36,10 @@ public class User implements Serializable {
     @Column(name = "user_name",length = 32,nullable = false,unique = true)
     private String username; //用户名
     private String password; //密码
-    @Transient //不持久化此字段，这个字段在数据库中不存在
+    //@Transient //不持久化此字段，这个字段在数据库中不存在
     private String name; //姓名
     private String sex; //性别
+    private Integer status;//状态
     //@Temporal(value = TemporalType.DATE )
     private LocalDateTime createdAt;//创建时间 created_at
 }

@@ -1,22 +1,15 @@
 package cn.edu.nenu.service;
 
+import cn.edu.nenu.config.orm.jpa.DynamicSpecifications;
+import cn.edu.nenu.config.orm.jpa.SearchFilter;
 import cn.edu.nenu.domain.User;
 import cn.edu.nenu.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,163 +22,103 @@ import java.util.Map;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
-
-    //@Autowired
-    //private UserMapper userMapper;
+    UserRepository userRepo;
 
     /**
-     * 根据主键ID获取实体对象
-     * @param pkId
-     * @return
+     * 根据主键获取实体，常用
      */
-    public User findById(Long pkId){
-        return userRepository.findById(pkId);
+    public User findOne(Long pkId){
+        return userRepo.findOne(pkId);
     }
 
+    public User findByUsername(String username){
+        return userRepo.findByUsername(username);
+    }
     /**
-     * 当前页面数据（当前页码，每页的记录数，查询参数）
-     * @param pageNumber
-     * @param pageSize
-     * @param param
-     * @return
+     * 保存一个实体，常用
      */
-    public Page<User> getPage(int pageNumber, int pageSize, Map<String,Object> param) {
-
-        /*******************************************************************************
-         * 数据访问层接口不同有两种实现方式
-         *
-         * 第一种：利用spring Data JPA 进行查询分页
-         *
-         */
-        // 单表查询，多表查询无能为力
-        //参数查询的构建
-        Specification<User> spec= new Specification<User>(){
-            @Override
-            public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
-
-                List<Predicate> predicates = new ArrayList<>();
-                for (Map.Entry<String,Object> entry:param.entrySet()){
-                    String key = entry.getKey();
-                    Object value = entry.getValue();
-                    if (key.equals("username")){
-                        Path username = root.get("username");
-                        predicates.add(cb.equal(username,value));//相等
-                    }else if(key.equals("age")){
-                        Path age = root.get("age");
-                        predicates.add(cb.greaterThan(age,(Comparable)value));//大于
-                    }
-                }
-
-                //Path username = root.get("username");
-                //predicates.add(cb.equal(username,"admin"));//相等
-                //Path age = root.get("age");
-                //predicates.add(cb.greaterThan(age,28));//大于
-                //
-                //cb.and(cb.equal(username,"admin"),cb.greaterThan(age,28));
-                ////"username=admin and age>=28";
-                //cb.or(cb.equal(username,"admin"),cb.greaterThan(age,28));
-                // "username=admin or age>=28"
-                //predicates.add(cb.equal(expression,"admin"));//相等
-                cb.and(predicates.toArray(new Predicate[predicates.size()]));
-                /**
-                 * CriteriaBuilder的表达式关键词
-                 * 并且：and
-                 * 或者：or
-                 * 等于：equal
-                 * 相似：like
-                 * 大于：greaterThan
-                 * 小于：lessThan
-                 * 大于等于：greaterThanOrEqualTo
-                 * 小于等于：lessThanOrEqualTo
-                 */
-                return cb.conjunction();
-            }
-        };
-
-        Sort sort = new Sort(Sort.Direction.ASC,"username");
-        PageRequest pageRequest = new PageRequest(pageNumber-1,pageSize, sort); //索引值=页码值-1
-        Page pageJPA = userRepository.findAll(spec,pageRequest);
-
-        /*********************************************************************************
-         * 第二种：利用MyBatis SQL语句进行查询分页
-         *
-         **********************************************************************************/
-
-        //Mybatis, SQL语句查询
-        //List<User> list = userMapper.getPage(pageNumber,pageSize,param);
-        //Pageable pageable = new Pageable() {
-        //    @Override
-        //    public int getPageNumber() {
-        //        return pageNumber;
-        //    }
-        //
-        //    @Override
-        //    public int getPageSize() {
-        //        return pageSize;
-        //    }
-        //
-        //    @Override
-        //    public int getOffset() {
-        //        return 0;
-        //    }
-        //
-        //    @Override
-        //    public Sort getSort() {
-        //        return null;
-        //    }
-        //
-        //    @Override
-        //    public Pageable next() {
-        //        return null;
-        //    }
-        //
-        //    @Override
-        //    public Pageable previousOrFirst() {
-        //        return null;
-        //    }
-        //
-        //    @Override
-        //    public Pageable first() {
-        //        return null;
-        //    }
-        //
-        //    @Override
-        //    public boolean hasPrevious() {
-        //        return false;
-        //    }
-        //};
-        //Page page = new PageImpl(list,pageable,list.size());
-        return pageJPA;
+    public User save(User entity){
+        return userRepo.save(entity);
     }
 
     /**
-     * 持久化实体类
-     * @param entity
-     * @return
+     * 批量保存实体  Set，List
      */
-    public User save(User entity) {
-
-        /**
-         * 使用了接口类，通用类中使用了泛型
-         */
-        return userRepository.save(entity);
+    public Iterable<User> sava(Iterable<User> entities){
+        return userRepo.save(entities);
     }
 
     /**
-     * 批量持久化
-     * @param entities
-     * @return
+     * 根据主键删除实体，常用
      */
-    public Collection save(Collection entities){
-        return userRepository.save(entities);
+    public void remove(Long pkId){
+        userRepo.delete(pkId);
     }
-    public void delete(Long pkId){
-        userRepository.delete(pkId);
+
+    /**
+     * 根据实体删除实体，不常用
+     */
+    public void remove(User entity){
+        userRepo.delete(entity);
     }
-    public void delete(User entity){
-        userRepository.delete(entity);
+
+    /**
+     * 批量删除实体，使用较少
+     */
+    public void remove(Iterable<User> users){
+        userRepo.delete(users);
     }
+
+//    /**
+//     * 根据字典类型获取字典集合
+//     */
+//    public List<User> findByType(String type){
+//        return userRepo.findByTypeOrderBySort(type);
+//    }
+
+    /**
+     * 根据查询条件获取分页结果数据
+     */
+    public Page<User> getEntityPage(Map<String, Object> filterParams, int pageNumber, int pageSize){
+        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize);
+        Specification<User> spec = buildSpecification(filterParams);
+        return userRepo.findAll(spec,pageRequest);
+    }
+    /**
+     * 创建分页请求.
+     */
+    private PageRequest buildPageRequest(int pageNumber, int pageSize) {
+//        Sort sort = null;
+//        if ("auto".equals(sortType)) {
+//            sort = new Sort(Sort.User.ASC, "sort");
+//        } else if ("sort".equals(sortType)) {
+//            sort = new Sort(Sort.Direction.ASC, "sort");
+//        }
+        return new PageRequest(pageNumber - 1, pageSize);
+    }
+
+    /**
+     * 创建动态查询条件组合.
+     */
+    private Specification<User> buildSpecification(Map<String, Object> filterParams) {
+
+        Map<String, SearchFilter> filters = SearchFilter.parse(filterParams);
+        //if (StringUtils.isNotBlank(id)) {
+        //    filters.put("id", new SearchFilter("id", SearchFilter.Operator.EQ, id));
+        //}
+        Specification<User> spec = DynamicSpecifications.bySearchFilter(filters.values(), User.class);
+        return spec;
+    }
+
+//    public float getMaxSort() {
+//        User User = userRepo.findFirstByOrderBySortDesc();
+//        if (User==null){
+//            return 0;
+//        }else {
+//            return User.getSort();
+//        }
+//
+//    }
 }
 
 

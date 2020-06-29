@@ -1,14 +1,19 @@
 package cn.edu.nenu.controller;
 
+import cn.edu.nenu.domain.User;
+import cn.edu.nenu.service.UserService;
 import lombok.extern.apachecommons.CommonsLog;
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * LoginController Class
@@ -21,14 +26,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 //@RequestMapping("/login")
 public class LoginController {
 
+    @Autowired
+    UserService userService;
+
     //@RequestMapping(value = {"/index","/"},method = RequestMethod.GET)
     //@RequestMapping("/index")
     //@GetMapping("/index")
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index(){
-        String url = "http://localhost:8080/index";
-        String url1 = "http://localhost:8080/login/index";
-        log.info(url);
+        //String url = "http://localhost:8080/index";
+        //String url1 = "http://localhost:8080/login/index";
+        //log.info(url);
         return "index";
     }
 
@@ -43,10 +51,15 @@ public class LoginController {
      */
 
     //@RequestMapping(value = "/login",method = RequestMethod.GET)
-    @GetMapping("/login/{id}")
-    public String loginForm(@PathVariable("id")Integer id){
-        log.info("login?method=get");
-        log.info(id);
+    //@GetMapping("/login/{id}")
+    //public String loginForm(@PathVariable("id")Integer id){
+    //    log.info("login?method=get");
+    //    log.info(id);
+    //    return "login";
+    //}
+
+    @GetMapping("/login")
+    public String loginForm(){
         return "login";
     }
 
@@ -56,12 +69,32 @@ public class LoginController {
                         @RequestParam(value = "password") String password,
                         //@RequestBody String json,
                         //ServletRequest request,
-                        Model model){
+                        Model model, HttpSession httpSession){
         log.info("login?method=post");
         //String username = request.getParameter("username");
         log.info(username);
         //log.info(json);
         model.addAttribute("username",username);
+        String message="";
+        User user = userService.findByUsername(username);
+        if (user==null){
+            //直接返回登录失败，并提示用户不存在
+            message = "用户登录失败，该用户不存在";
+        }else {
+            // 数据库取回的password为加密数据，利用加密解密类进行密码判断
+            if(password.equals(user.getPassword())){
+               //登陆成功，返回成功信息
+                httpSession.setAttribute("username", user.getUsername());
+                message ="用户登录成功";
+            }else{
+                //登录失败，提示，密码错误
+                message ="用户登录失败，用户名或密码错误";
+            }
+        }
+        model.addAttribute("message",message);
+        return "login";
+
+
 
         //User user = new User();
         //user.setName("admin");
@@ -83,29 +116,29 @@ public class LoginController {
          * 1.基本数据值类型相等的判断：int，long，float，boolean
          * 2.对象类型相等的判断：String，Integer，Long，Float，Boolean
          */
-        int a=1;
-        long b=1;
-        float c=1;
-        Integer aa=1,aaa=1;
-        Long bb=1l,bbb=1l;
-        Float cc=1f,ccc=1f;
-        if(1==a){System.out.println(0);}else{System.out.println(1);}
-        if(1==b){System.out.println(0);}else{System.out.println(1);}
-        if(1==c){System.out.println(0);}else{System.out.println(1);}
-        if(aaa==aa){System.out.println(0);}else{System.out.println(1);}
-        if(bbb==bb){System.out.println(0);}else{System.out.println(1);}
-        if (ccc==cc){System.out.println(0);}else{System.out.println(1);}
-        String ss="abc";
-        if ("abc"==ss){System.out.println(0);}else{System.out.println(1);}
-        if("abc".equals(ss)){System.out.println(0);}else{System.out.println(1);}
+        //int a=1;
+        //long b=1;
+        //float c=1;
+        //Integer aa=1,aaa=1;
+        //Long bb=1l,bbb=1l;
+        //Float cc=1f,ccc=1f;
+        //if(1==a){System.out.println(0);}else{System.out.println(1);}
+        //if(1==b){System.out.println(0);}else{System.out.println(1);}
+        //if(1==c){System.out.println(0);}else{System.out.println(1);}
+        //if(aaa==aa){System.out.println(0);}else{System.out.println(1);}
+        //if(bbb==bb){System.out.println(0);}else{System.out.println(1);}
+        //if (ccc==cc){System.out.println(0);}else{System.out.println(1);}
+        //String ss="abc";
+        //if ("abc"==ss){System.out.println(0);}else{System.out.println(1);}
+        //if("abc".equals(ss)){System.out.println(0);}else{System.out.println(1);}
 
 
 
 
 
-        String sss = null; //""," ","abc"
-        sss.equals("abc"); // 方法1
-        "abc".equals(sss); // 方法2
+        //String sss = null; //""," ","abc"
+        //sss.equals("abc"); // 方法1
+        //"abc".equals(sss); // 方法2
 
         /**
          * 作业3 - JAVA基础-如何判断相等
@@ -113,13 +146,13 @@ public class LoginController {
          *    2- 与基本数据类型相比有何区别
          */
 
-        Float fc=1f,fcc=1f;
-        //fc == fcc; //方法3
-        fc.equals(fcc); //方法4
-        //不能是null
-        fc=null;
-        if(fc.floatValue() == fcc.floatValue()) {
-        }
+        //Float fc=1f,fcc=1f;
+        ////fc == fcc; //方法3
+        //fc.equals(fcc); //方法4
+        ////不能是null
+        //fc=null;
+        //if(fc.floatValue() == fcc.floatValue()) {
+        //}
 
         /**
          * 1，生产环境中，升级某项设置或者功能，顺序：
@@ -151,14 +184,13 @@ public class LoginController {
          */
 
 
-        if ("admin".equals(username)&&"123".equals(password)){
-            return "loginsuccess";
-        }else{
-            //return "loginfail";
-            return "user/userForm";
+        //if ("admin".equals(username)&&"123".equals(password)){
+        //    return "loginsuccess";
+        //}else{
+        //    return "loginfail";
+            //return "user/userForm";
             //web-inf/views/+ return 字符串 + .jsp
-        }
-
+        //}
     }
 
     //public ModelAndView login(ServletRequest request){

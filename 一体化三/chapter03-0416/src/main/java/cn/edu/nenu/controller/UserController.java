@@ -1,9 +1,14 @@
 package cn.edu.nenu.controller;
 
+import cn.edu.nenu.config.Constants;
+import cn.edu.nenu.config.HttpServlet;
+import cn.edu.nenu.domain.User;
+import cn.edu.nenu.domain.User;
 import cn.edu.nenu.domain.User;
 import cn.edu.nenu.service.UserService;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +16,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Map;
+
+import static cn.edu.nenu.config.Constants.PAGE_SIZE;
 
 /**
  * UserController Class
@@ -27,87 +44,85 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-    private static final int PAGE_SIZE = 20;
-
     @Autowired
-    public UserService userService;
+    UserService userService;
 
-    /**
-     * 列表页面，涉及到分页
-     * @param pageNumber
-     * @param model
-     * @param request
-     * @return
-     */
-    @GetMapping()
-    public String list(@RequestParam(value = "page",defaultValue = "1")int pageNumber,
-                       Model model, ServletRequest request){
-        //String param = request.getParameter("param");
-        //List users = userService.getPage(pageNumber,PAGE_SIZE,param);
-        //model.addAttribute("param",param);
-        return "user/list"; //视图名，视图路径
+    @RequestMapping("")
+    public String list(@RequestParam(value = "page", defaultValue = "1") int pageNumber, Model model, ServletRequest request, HttpSession httpSession){
+
+        Map<String, Object> searchParams = HttpServlet.getParametersStartingWith(request, "s_");
+        Page<User> users = userService.getEntityPage(searchParams, pageNumber, PAGE_SIZE);
+        for(User user:users){
+            if(user.getUsername().equals(httpSession.getAttribute("username")))
+                user.setStatus(1);
+        }
+        model.addAttribute("users", users);
+        model.addAttribute("PAGE_SIZE", PAGE_SIZE);
+        model.addAttribute("searchParams", HttpServlet.encodeParameterStringWithPrefix(searchParams, "s_"));
+        String path = "/WEB-INF/views/user/list.jsp";
+        return "user/list";
+    }
+
+    @GetMapping(value = "create")
+    public String createForm(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("action", "create");
+        return "user/form";
+    }
+
+    @PostMapping(value = "create")
+    public String create(@Valid User newUser, RedirectAttributes redirectAttributes) {
+        LocalDateTime date = LocalDateTime.now(Clock.systemUTC());
+        newUser.setCreatedAt(date);
+        newUser.setStatus(0);
+        userService.save(newUser);
+        redirectAttributes.addFlashAttribute("message", "创建用户成功");
+        return "redirect:/user/";
+    }
+
+    @GetMapping(value = "update/{id}")
+    public String updateForm(@PathVariable("id") Long pkId, Model model){
+        User user =  userService.findOne(pkId);
+        model.addAttribute("user",user);
+        model.addAttribute("action", "update");
+        return "user/form";
     }
 
     /**
-     * 根据主键ID获取实体，获取详细信息
-     * @param id
-     * @return
+     * 页面编辑后，保存
      */
-    @GetMapping("/{id}")
-    public User get(@PathVariable("id")Long id){
-        return userService.findById(id);
+    @PostMapping(value = "update")
+    public String update(@Valid User user, RedirectAttributes redirectAttributes){
+        Long pkId = user.getId();
+        User newDict = userService.findOne(pkId);
+        newDict.setName(user.getName());
+        newDict.setPassword(user.getPassword());
+        newDict.setSex(user.getSex());
+        newDict.setUsername(user.getUsername());
+
+        userService.save(newDict);
+        redirectAttributes.addFlashAttribute("message", "更改用户信息成功");
+        return "redirect:/user/";
     }
 
-    /**
-     * 进入创建用户页面
-     * @param model
-     * @return
-     */
-    //@GetMapping("/create")
-    //public String createForm(Model model){
-    //    return "user/form";
-    //}
-    //@GetMapping("/create")
-    //public ModelAndView createFrm(Model model){
-    //    return new ModelAndView("user/form");
-    //}
-
-    /**
-     * 填写用户信息后保存信息到数据库
-     *
-     * form表单标签属性name的值
-     * user.username
-     * user.password
-     * user.createdAt
-     * <input type="text" name="user.username" value=""/>
-     *
-     *
-     * @param attributes
-     * @return
-     */
-    @PostMapping("/create")
-    public String create(@Valid User newUser, RedirectAttributes attributes){
-        //第一：request接收参数而来
-        //第二：采用自动绑定接收参数而来
-        //第三：接收字符串类型的JSON数据，反序列为对象
-        newUser = userService.save(newUser);
-        attributes.addAttribute("message","保存成功");
-        attributes.addAttribute("user",newUser);
-        return "redirect:/user";
+    @RequestMapping(value = "delete/{id}")
+    public String delete(@PathVariable("id") Long pkId, RedirectAttributes redirectAttributes) {
+        String message = "删除用户成功";
+        try {
+            userService.remove(pkId);
+        }catch (Exception e){
+            message = "删除用户失败，该用户被使用";
+        }
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/user/";
     }
-
-    //@PostMapping
-    //public String createJSON(@RequestBody String json, RedirectAttributes attributes){
-    //    //对json进行发序列化，变成参数对象
-    //    return "redirect:/user"; //视图路径
-    //}
-    //@PostMapping
-    //public String createRequest(HttpServletRequest request, RedirectAttributes attributes){
-    //    String username = request.getParameter("username");
-    //    User newUser = new User();
-    //    newUser.setUsername(username);
-    //
-    //    userService.save(newUser);
-    //    return "redirect:/user"; //视图路径
-    //}
+    
+    @PostMapping(value = "delete")
+    public String deleteBatch(ServletRequest request,RedirectAttributes redirectAttributes){
+        String[] chkIds = request.getParameterValues("chkIds");
+        for (String id:chkIds){
+            userService.remove(Long.valueOf(id));
+        }
+        return "redirect:/user/";
+    }
 }
